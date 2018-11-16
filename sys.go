@@ -1,6 +1,7 @@
 package goutil
 
 import (
+	"log"
 	"runtime"
 )
 
@@ -9,7 +10,14 @@ func GetMyName() string {
 	return runtime.FuncForPC(pc).Name()
 }
 
-func GetCallerName() string {
+func GetExecutorName() string {
 	pc, _, _, _ := runtime.Caller(2)
 	return runtime.FuncForPC(pc).Name()
+}
+
+func ChkErr(err error) {
+	if err != nil {
+		log.Println("executor:", GetExecutorName())
+		log.Panic(err)
+	}
 }
